@@ -542,7 +542,7 @@ function renderParents() {
   }
   const hardest = hardestFacts(profile);
   els.parentsHardest.replaceChildren(...(hardest.length
-    ? hardest.map((h) => el('li', '', `${h.text} — errou ${h.errors} de ${h.attempts} ${h.attempts === 1 ? 'vez' : 'vezes'}`))
+    ? hardest.map((h) => el('li', '', `${h.text} (errou ${h.errors} de ${h.attempts} ${h.attempts === 1 ? 'vez' : 'vezes'})`))
     : [el('li', 'none', 'Nenhuma conta difícil por enquanto. 👏')]));
   els.parentsNotice.textContent = '';
 }

@@ -1,4 +1,4 @@
-# Tabuada Divertida — pratique a tabuada brincando (HTML + JavaScript)
+# Tabuada Divertida: pratique a tabuada brincando (HTML + JavaScript)
 
 Um jogo de tabuada para crianças de 6 a 11 anos, feito para treinar sem pressão: cada acerto rende pontos e estrelas, e cada erro vira aprendizado na hora, com a resposta certa na tela. As contas que a criança erra voltam com mais frequência, até ela pegar o jeito.
 
@@ -41,4 +41,4 @@ npm test
 Issues e pull requests são bem-vindos, principalmente sugestões de professores e famílias.
 
 ## Licença
-MIT — veja [LICENSE](LICENSE).
+MIT. Veja [LICENSE](LICENSE).
