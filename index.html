@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tabuada Divertida — pratique a tabuada brincando</title>
+  <meta name="description" content="Pratique a tabuada de multiplicação e divisão brincando: treino sem relógio, desafio de 60 segundos, tabuada completa, estrelas, perfis e área dos responsáveis.">
+  <meta name="theme-color" content="#6d28d9">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./src/app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-row">
+      <div>
+        <h1>Tabuada Divertida <span aria-hidden="true">🧮</span></h1>
+        <p class="lead">Pratique a tabuada brincando: estrelas, sequências e nenhuma pressão.</p>
+      </div>
+      <button type="button" class="btn secondary" id="som" aria-pressed="true">🔊 Som ligado</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="card profiles" aria-labelledby="perfis-titulo">
+      <h2 id="perfis-titulo">Quem vai jogar?</h2>
+      <div class="profile-list" id="perfis" role="group" aria-label="Perfis"></div>
+      <form id="form-perfil" class="profile-form" hidden>
+        <label for="nome-perfil">Nome</label>
+        <input id="nome-perfil" maxlength="20" autocomplete="off" placeholder="Ex.: Maria">
+        <fieldset>
+          <legend>Escolha um bichinho</legend>
+          <div class="avatars" id="avatares"></div>
+        </fieldset>
+        <p class="form-error" id="erro-perfil" aria-live="polite"></p>
+        <div class="actions">
+          <button type="submit" class="btn">Criar perfil</button>
+          <button type="button" class="btn secondary" id="cancelar-perfil">Cancelar</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="inicio" aria-label="Início">
+      <div class="card">
+        <h2>Escolha as tabuadas</h2>
+        <div class="picker" id="tabuadas" role="group" aria-label="Tabuadas"></div>
+        <div class="picker-actions">
+          <button type="button" class="btn secondary small" id="todas">Marcar todas</button>
+          <button type="button" class="btn secondary small" id="nenhuma">Desmarcar todas</button>
+        </div>
+        <label class="check" for="ate-12"><input type="checkbox" id="ate-12"> Incluir as tabuadas do 11 e do 12 (contas até × 12)</label>
+        <h2 class="spaced">Operações</h2>
+        <label class="check" for="op-mult"><input type="checkbox" id="op-mult" value="mult"> ✖️ Multiplicação</label>
+        <label class="check" for="op-div"><input type="checkbox" id="op-div" value="div"> ➗ Divisão exata</label>
+        <p class="form-error" id="erro-config" aria-live="polite"></p>
+      </div>
+      <div class="mode-grid">
+        <button type="button" class="mode-card tone-a" id="modo-treino"><span class="mode-icon" aria-hidden="true">🎯</span><strong>Treino</strong><span>Sem relógio. Errou? Você vê a resposta na hora.</span></button>
+        <button type="button" class="mode-card tone-b" id="modo-desafio"><span class="mode-icon" aria-hidden="true">⏱️</span><strong>Desafio</strong><span>60 segundos para acertar o máximo que conseguir.</span></button>
+        <button type="button" class="mode-card tone-c" id="modo-estudo"><span class="mode-icon" aria-hidden="true">📖</span><strong>Tabuada completa</strong><span>Veja e estude a tabuada inteira.</span></button>
+      </div>
+      <p class="center"><button type="button" class="link-btn" id="abrir-responsaveis">👨‍👩‍👧 Área dos responsáveis</button></p>
+    </section>
+
+    <section id="jogo" class="card game" hidden aria-label="Jogo">
+      <div class="game-top">
+        <span id="jogo-progresso">Conta 1 de 10</span>
+        <span><span aria-hidden="true">⭐</span> <span id="jogo-pontos">0</span> pontos</span>
+        <span><span aria-hidden="true">🔥</span> sequência <span id="jogo-sequencia">0</span></span>
+      </div>
+      <div class="bar" aria-hidden="true"><div class="bar-fill" id="jogo-barra"></div></div>
+      <form id="form-resposta" class="question-area" autocomplete="off">
+        <p class="question" id="conta" aria-live="polite"></p>
+        <label for="resposta" class="sr-only">Sua resposta</label>
+        <input id="resposta" class="answer" type="text" inputmode="none" maxlength="3" autocomplete="off" aria-describedby="conta">
+      </form>
+      <div class="keypad" id="teclado" role="group" aria-label="Teclado numérico"></div>
+      <div class="feedback" id="jogo-retorno" aria-live="polite"></div>
+      <div class="actions center-actions">
+        <button type="button" class="btn big" id="continuar" hidden>Continuar ➜</button>
+        <button type="button" class="btn secondary" id="parar">Parar</button>
+      </div>
+    </section>
+
+    <section id="fim" class="card end" hidden aria-labelledby="fim-titulo">
+      <p class="stars" id="fim-estrelas" aria-hidden="true"></p>
+      <h2 id="fim-titulo" tabindex="-1"></h2>
+      <p class="end-message" id="fim-mensagem"></p>
+      <ul class="summary" id="fim-resumo"></ul>
+      <div id="fim-treinar"></div>
+      <div class="actions center-actions">
+        <button type="button" class="btn big" id="jogar-de-novo">Jogar de novo</button>
+        <button type="button" class="btn secondary" id="voltar-inicio">Voltar ao início</button>
+      </div>
+    </section>
+
+    <section id="estudo" class="card" hidden aria-labelledby="estudo-titulo">
+      <h2 id="estudo-titulo">Tabuada completa</h2>
+      <div class="picker" id="estudo-tabuadas" role="group" aria-label="Escolha a tabuada"></div>
+      <label class="check" for="esconder"><input type="checkbox" id="esconder"> Esconder os resultados (toque no “?” para ver)</label>
+      <div class="study-grid">
+        <div>
+          <h3 id="estudo-mult-titulo">Multiplicação</h3>
+          <ol class="study-list" id="estudo-mult" aria-labelledby="estudo-mult-titulo"></ol>
+        </div>
+        <div>
+          <h3 id="estudo-div-titulo">Divisão</h3>
+          <ol class="study-list" id="estudo-div" aria-labelledby="estudo-div-titulo"></ol>
+        </div>
+      </div>
+      <button type="button" class="btn secondary" id="estudo-voltar">Voltar ao início</button>
+    </section>
+
+    <section id="responsaveis" class="card" hidden aria-labelledby="resp-titulo">
+      <h2 id="resp-titulo" tabindex="-1">Área dos responsáveis</h2>
+      <p id="resp-resumo"></p>
+      <h3>Acertos por tabuada</h3>
+      <div class="table-stats" id="resp-tabuadas"></div>
+      <h3>Contas mais difíceis</h3>
+      <ol class="hardest" id="resp-dificeis"></ol>
+      <h3>Perfil</h3>
+      <div class="actions">
+        <button type="button" class="btn secondary" id="zerar">Zerar progresso deste perfil</button>
+        <button type="button" class="btn danger" id="apagar-perfil">Apagar este perfil</button>
+      </div>
+      <p class="form-error" id="resp-aviso" aria-live="polite"></p>
+      <p class="muted small">Os dados ficam só neste navegador. Contas com mais erros voltam com mais frequência nos treinos, até a criança acertar algumas vezes seguidas.</p>
+      <button type="button" class="btn secondary" id="resp-voltar">Voltar ao início</button>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Tudo roda no seu navegador. Código aberto no <a href="https://github.com/micdog22/tabuada-divertida">GitHub</a> · Licença MIT</p>
+  </footer>
+</body>
+</html>

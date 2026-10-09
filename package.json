@@ -1,0 +1,11 @@
+{
+  "name": "tabuada-divertida",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tabuada Divertida: pratique a tabuada de multiplicação e divisão brincando, com estrelas, repetição inteligente e perfis.",
+  "type": "module",
+  "scripts": { "test": "node --test" },
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/micdog22/tabuada-divertida.git" },
+  "homepage": "https://micdog22.github.io/tabuada-divertida/"
+}
